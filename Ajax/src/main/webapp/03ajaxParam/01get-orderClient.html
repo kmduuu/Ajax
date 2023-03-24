@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="EUC-KR">
+	
+	<script type="text/javascript" src="/Ajax/10common/ajaxUtil01.js"></script>
+	<script type="text/javascript">
+	
+	function getCustomerInfo(){
+		createRequest();
+		
+		var name= document.getElementById("name").value;
+		var phone= document.getElementById("phone").value;
+		var url = "get-orderServer.jsp?name="+name+"&phone="+phone;
+		
+		request.open("GET", url, true);
+		request.onreadystatechange = updatePage;
+		request.send(null);
+	}
+	function updatePage(){
+		if(request.status == 4){
+	
+			if(request.status == 200){
+			var serverData = request.responseText;
+			var displayValue = trim(serverData);
+			
+			alert("Server에서 받은 내용 : \n"+displayValue);
+			
+			document.getElementById("address").value = displayValue;
+		}else{
+			alert("에러 발생"+request.status);
+		}
+	}
+}
+	function trim(str){
+		return str.replace(/^\s\s*/,").replace(/\s\s*$/,");
+	}
+	
+	</script>
+</head>
+	<body onload = "document.forms[0].reset()">
+	<form>
+		<p>이 &nbsp;&nbsp;&nbsp;&nbsp; 름
+			<input type="text" size="14" name="name" id="name"/>
+		</p>
+		
+		<p>전화번호 : <input type="text" size="14" name="phone" id="phone"/>
+		
+			<input type="text" size="14" name="name" id="name"/>
+		</p>
+		
+		<p>주 &nbsp;&nbsp;&nbsp;&nbsp; 소 : </p>
+		
+		<p>
+			<textarea rows="3" cols="50" name="address" id="address"
+					  onclick="javascript:getCostomerInfo() "> 이름을 입력 후 :: 여기에 click...</textarea>
+		</p>
+	</form>
+<body>
+
+</body>
+</html>
